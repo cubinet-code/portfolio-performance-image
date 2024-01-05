@@ -18,8 +18,6 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -30,18 +28,14 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Show env
-        run: |
-          export
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
+          platforms: linux/amd64,linux/arm64
           build-args: |
             VERSION=0.67.0
             ARCH=aarch64
-          tags: ${{ env.REGISTRY }}/portfolio-performance:latest
-          context: .
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           push: true
-          platforms: linux/amd64,linux/arm64
-          # cache-from: type=gha
-          # cache-to: type=gha,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
