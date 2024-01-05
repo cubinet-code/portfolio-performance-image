@@ -30,11 +30,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Show env
         run: |
           export
@@ -44,7 +39,7 @@ jobs:
           build-args: |
             VERSION=0.67.0
             ARCH=aarch64
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/portfolio-performance:latest
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
