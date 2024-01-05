@@ -42,12 +42,25 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           build-args: |
             VERSION=0.67.0
             ARCH=aarch64
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:aarch64
           labels: ${{ steps.meta.outputs.labels }}
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          build-args: |
+            VERSION=0.67.0
+            ARCH=x86_64
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:x86_64
+          labels: ${{ steps.meta.outputs.labels }},
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
