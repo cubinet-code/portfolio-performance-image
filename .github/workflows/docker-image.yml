@@ -41,6 +41,11 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
+          build-args:
+            - "VERSION=0.67.0"
+            - "ARCH=aarch64"
+          tags:
+            - ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           context: .
           push: true
           platforms: linux/amd64,linux/arm64

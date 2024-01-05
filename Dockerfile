@@ -1,8 +1,8 @@
 # Pull base image.
 FROM jlesage/baseimage-gui:ubuntu-22.04-v4
 
+# PP version to install
 ARG VERSION=0.67.0
-
 # x86_64 or aarch64
 ARG ARCH=aarch64 
 
