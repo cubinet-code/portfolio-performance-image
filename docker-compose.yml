@@ -1,7 +1,7 @@
 version: "3"
 services:
   portfolio-performance:
-    image: cubinet/portfolio-performance:latest
+    image: docker pull ghcr.io/cubinet-code/portfolio-performance-image:latest
     container_name: portfolio-performance
     # restart: unless-stopped
     ports:
